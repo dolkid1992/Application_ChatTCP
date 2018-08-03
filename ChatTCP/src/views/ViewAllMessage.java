@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
  *
  * @author Hieutt
  */
-public class ChatRoom extends javax.swing.JFrame {
+public class ViewAllMessage extends javax.swing.JFrame {
+
     public void clock() {
         Thread clock = new Thread() {
             @Override
@@ -29,16 +30,16 @@ public class ChatRoom extends javax.swing.JFrame {
                         sleep(1000);
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
         };
         clock.start();
     }
+
     /**
-     * Creates new form ChatRoom
+     * Creates new form ViewAllMessage
      */
-    public ChatRoom() {
+    public ViewAllMessage() {
         clock();
         initComponents();
         this.setTitle("ChatRoom");
@@ -54,16 +55,13 @@ public class ChatRoom extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         lblClock = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
         lblLogout = new javax.swing.JButton();
         lblTittle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tfChatBox = new javax.swing.JTextArea();
-        tfMessage = new javax.swing.JTextField();
-        btnSend = new javax.swing.JButton();
+        jScrollPane = new javax.swing.JScrollPane();
+        tblViewYourMessage = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnFile = new javax.swing.JMenu();
         btnExit = new javax.swing.JMenuItem();
@@ -88,33 +86,20 @@ public class ChatRoom extends javax.swing.JFrame {
         });
 
         lblTittle.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        lblTittle.setText("CHAT BOX");
+        lblTittle.setText("VIEW ALL MESSAGE");
 
-        tfChatBox.setEditable(false);
-        tfChatBox.setColumns(20);
-        tfChatBox.setRows(5);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tfMessage, org.jdesktop.beansbinding.ELProperty.create("Typing a message ..."), tfChatBox, org.jdesktop.beansbinding.BeanProperty.create("toolTipText"), "Typing a message ...");
-        bindingGroup.addBinding(binding);
-
-        jScrollPane1.setViewportView(tfChatBox);
-
-        tfMessage.setText("Typing a message ...");
-        tfMessage.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tfMessageFocusGained(evt);
+        tblViewYourMessage.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "How are you? ", "02/08/2018", "Client1"},
+                {"2", "What is this", "03/08/2018", "Client2"},
+                {"3", "Hi", "01/01/2018", "Client2"},
+                {"4", "Hello", "03/03/2017", "Client2"}
+            },
+            new String [] {
+                "ID", "Message", "Date", "UserName"
             }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfMessageFocusLost(evt);
-            }
-        });
-        tfMessage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfMessageActionPerformed(evt);
-            }
-        });
-
-        btnSend.setText("Send");
+        ));
+        jScrollPane.setViewportView(tblViewYourMessage);
 
         mnFile.setText("File");
 
@@ -154,72 +139,43 @@ public class ChatRoom extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTittle)
+                .addGap(164, 164, 164))
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblClock, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addComponent(lblTittle))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblLogout))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 24, Short.MAX_VALUE))
+                        .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblLogout))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblLogout))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblUserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblLogout)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(47, 47, 47))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTittle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(lblClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfMessage)
-                    .addComponent(btnSend, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(lblTittle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
-
-        bindingGroup.bind();
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnYourMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYourMessageActionPerformed
-        this.setVisible(false);
-        ViewYourMessage viewYourMessage =new ViewYourMessage();
-        viewYourMessage.setVisible(true);
-    }//GEN-LAST:event_btnYourMessageActionPerformed
-
-    private void lblLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblLogoutActionPerformed
-        this.setVisible(false);
-        Login login =new Login();
-        login.setVisible(true);
-        
-    }//GEN-LAST:event_lblLogoutActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Are you sure to exit this application") == 0) {
@@ -227,27 +183,23 @@ public class ChatRoom extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void tfMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMessageActionPerformed
-            // TODO add your handling code here:
-    }//GEN-LAST:event_tfMessageActionPerformed
-
-    private void tfMessageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMessageFocusGained
-        if (tfMessage.getText().equals("Typing a message ...")) {
-            tfMessage.setText("");
-        }
-    }//GEN-LAST:event_tfMessageFocusGained
-
-    private void tfMessageFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMessageFocusLost
-        if (tfMessage.getText().equals("")) {
-            tfMessage.setText("Typing a message ...");
-        }
-    }//GEN-LAST:event_tfMessageFocusLost
+    private void btnYourMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYourMessageActionPerformed
+        this.setVisible(false);
+        ViewYourMessage viewYourMessage = new ViewYourMessage();
+        viewYourMessage.setVisible(true);
+    }//GEN-LAST:event_btnYourMessageActionPerformed
 
     private void btnAllMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllMessageActionPerformed
         this.setVisible(false);
-        ViewAllMessage viewAllMessage =new ViewAllMessage();
+        ViewAllMessage viewAllMessage = new ViewAllMessage();
         viewAllMessage.setVisible(true);
     }//GEN-LAST:event_btnAllMessageActionPerformed
+
+    private void lblLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblLogoutActionPerformed
+        this.setVisible(false);
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_lblLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,20 +218,20 @@ public class ChatRoom extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChatRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewAllMessage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChatRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewAllMessage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChatRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewAllMessage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChatRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewAllMessage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChatRoom().setVisible(true);
+                new ViewAllMessage().setVisible(true);
             }
         });
     }
@@ -287,18 +239,15 @@ public class ChatRoom extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAllMessage;
     private javax.swing.JMenuItem btnExit;
-    private javax.swing.JButton btnSend;
     private javax.swing.JMenuItem btnYourMessage;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JLabel lblClock;
     private javax.swing.JButton lblLogout;
     private javax.swing.JLabel lblTittle;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JMenu mnFile;
     private javax.swing.JMenu mnView;
-    private javax.swing.JTextArea tfChatBox;
-    private javax.swing.JTextField tfMessage;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
+    private javax.swing.JTable tblViewYourMessage;
     // End of variables declaration//GEN-END:variables
 }
