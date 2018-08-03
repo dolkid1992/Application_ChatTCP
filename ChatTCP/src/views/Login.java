@@ -80,10 +80,13 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setVisible(true);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void tfUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUserNameActionPerformed
