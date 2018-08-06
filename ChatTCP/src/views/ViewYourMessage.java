@@ -73,7 +73,7 @@ public class ViewYourMessage extends javax.swing.JFrame {
         mnFile = new javax.swing.JMenu();
         btnExit = new javax.swing.JMenuItem();
         mnView = new javax.swing.JMenu();
-        btnYourMessage = new javax.swing.JMenuItem();
+        btnHome = new javax.swing.JMenuItem();
         btnAllMessage = new javax.swing.JMenuItem();
 
         lblTittle.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
@@ -151,13 +151,13 @@ public class ViewYourMessage extends javax.swing.JFrame {
 
         mnView.setText("View");
 
-        btnYourMessage.setText("Your Message");
-        btnYourMessage.addActionListener(new java.awt.event.ActionListener() {
+        btnHome.setText("Home");
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnYourMessageActionPerformed(evt);
+                btnHomeActionPerformed(evt);
             }
         });
-        mnView.add(btnYourMessage);
+        mnView.add(btnHome);
 
         btnAllMessage.setText("All Message");
         btnAllMessage.addActionListener(new java.awt.event.ActionListener() {
@@ -230,11 +230,11 @@ public class ViewYourMessage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnYourMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYourMessageActionPerformed
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         this.setVisible(false);
-        ViewYourMessage viewYourMessage = new ViewYourMessage();
-        viewYourMessage.setVisible(true);
-    }//GEN-LAST:event_btnYourMessageActionPerformed
+        ChatRoom chatRoom = new ChatRoom(); 
+        chatRoom.setVisible(true);
+    }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnAllMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllMessageActionPerformed
         this.setVisible(false);
@@ -299,8 +299,8 @@ public class ViewYourMessage extends javax.swing.JFrame {
     private javax.swing.JCheckBox btnDelete4;
     private javax.swing.JCheckBox btnDelete7;
     private javax.swing.JMenuItem btnExit;
+    private javax.swing.JMenuItem btnHome;
     private javax.swing.JCheckBox btnSelectAll;
-    private javax.swing.JMenuItem btnYourMessage;
     private javax.swing.JButton jButton;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane;

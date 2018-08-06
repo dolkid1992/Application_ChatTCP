@@ -45,6 +45,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
         this.setTitle("ChatRoom");
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(576,520);
     }
 
     /**
@@ -67,7 +68,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
         btnExit = new javax.swing.JMenuItem();
         mnView = new javax.swing.JMenu();
         btnYourMessage = new javax.swing.JMenuItem();
-        btnAllMessage = new javax.swing.JMenuItem();
+        btnHome = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,13 +124,13 @@ public class ViewAllMessage extends javax.swing.JFrame {
         });
         mnView.add(btnYourMessage);
 
-        btnAllMessage.setText("All Message");
-        btnAllMessage.addActionListener(new java.awt.event.ActionListener() {
+        btnHome.setText("Home");
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAllMessageActionPerformed(evt);
+                btnHomeActionPerformed(evt);
             }
         });
-        mnView.add(btnAllMessage);
+        mnView.add(btnHome);
 
         jMenuBar1.add(mnView);
 
@@ -189,11 +190,11 @@ public class ViewAllMessage extends javax.swing.JFrame {
         viewYourMessage.setVisible(true);
     }//GEN-LAST:event_btnYourMessageActionPerformed
 
-    private void btnAllMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllMessageActionPerformed
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         this.setVisible(false);
-        ViewAllMessage viewAllMessage = new ViewAllMessage();
-        viewAllMessage.setVisible(true);
-    }//GEN-LAST:event_btnAllMessageActionPerformed
+        ChatRoom chatRoom = new ChatRoom(); 
+        chatRoom.setVisible(true);
+    }//GEN-LAST:event_btnHomeActionPerformed
 
     private void lblLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblLogoutActionPerformed
         this.setVisible(false);
@@ -237,8 +238,8 @@ public class ViewAllMessage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem btnAllMessage;
     private javax.swing.JMenuItem btnExit;
+    private javax.swing.JMenuItem btnHome;
     private javax.swing.JMenuItem btnYourMessage;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane;

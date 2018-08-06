@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.JLabel" name="lblTittle">
       <Properties>
@@ -42,12 +42,12 @@
             <Property name="text" type="java.lang.String" value="View"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="btnYourMessage">
+            <MenuItem class="javax.swing.JMenuItem" name="btnHome">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Your Message"/>
+                <Property name="text" type="java.lang.String" value="Home"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnYourMessageActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHomeActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnAllMessage">

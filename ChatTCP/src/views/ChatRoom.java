@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  * @author Hieutt
  */
 public class ChatRoom extends javax.swing.JFrame {
+
     public void clock() {
         Thread clock = new Thread() {
             @Override
@@ -35,6 +36,7 @@ public class ChatRoom extends javax.swing.JFrame {
         };
         clock.start();
     }
+
     /**
      * Creates new form ChatRoom
      */
@@ -44,6 +46,8 @@ public class ChatRoom extends javax.swing.JFrame {
         this.setTitle("ChatRoom");
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(576, 520);
+
     }
 
     /**
@@ -210,15 +214,15 @@ public class ChatRoom extends javax.swing.JFrame {
 
     private void btnYourMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYourMessageActionPerformed
         this.setVisible(false);
-        ViewYourMessage viewYourMessage =new ViewYourMessage();
+        ViewYourMessage viewYourMessage = new ViewYourMessage();
         viewYourMessage.setVisible(true);
     }//GEN-LAST:event_btnYourMessageActionPerformed
 
     private void lblLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblLogoutActionPerformed
         this.setVisible(false);
-        Login login =new Login();
+        Login login = new Login();
         login.setVisible(true);
-        
+
     }//GEN-LAST:event_lblLogoutActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -228,7 +232,7 @@ public class ChatRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void tfMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMessageActionPerformed
-            // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_tfMessageActionPerformed
 
     private void tfMessageFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMessageFocusGained
@@ -245,7 +249,7 @@ public class ChatRoom extends javax.swing.JFrame {
 
     private void btnAllMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllMessageActionPerformed
         this.setVisible(false);
-        ViewAllMessage viewAllMessage =new ViewAllMessage();
+        ViewAllMessage viewAllMessage = new ViewAllMessage();
         viewAllMessage.setVisible(true);
     }//GEN-LAST:event_btnAllMessageActionPerformed
 
