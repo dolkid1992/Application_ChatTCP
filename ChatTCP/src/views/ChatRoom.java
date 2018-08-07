@@ -72,7 +72,6 @@ public class ChatRoom extends javax.swing.JFrame {
         mnFile = new javax.swing.JMenu();
         btnExit = new javax.swing.JMenuItem();
         mnView = new javax.swing.JMenu();
-        btnYourMessage = new javax.swing.JMenuItem();
         btnAllMessage = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,6 +121,7 @@ public class ChatRoom extends javax.swing.JFrame {
 
         mnFile.setText("File");
 
+        btnExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,15 +134,8 @@ public class ChatRoom extends javax.swing.JFrame {
 
         mnView.setText("View");
 
-        btnYourMessage.setText("Your Message");
-        btnYourMessage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnYourMessageActionPerformed(evt);
-            }
-        });
-        mnView.add(btnYourMessage);
-
-        btnAllMessage.setText("All Message");
+        btnAllMessage.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        btnAllMessage.setText("Show Chat History");
         btnAllMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllMessageActionPerformed(evt);
@@ -211,12 +204,6 @@ public class ChatRoom extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnYourMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYourMessageActionPerformed
-        this.setVisible(false);
-        ViewYourMessage viewYourMessage = new ViewYourMessage();
-        viewYourMessage.setVisible(true);
-    }//GEN-LAST:event_btnYourMessageActionPerformed
 
     private void lblLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblLogoutActionPerformed
         this.setVisible(false);
@@ -292,7 +279,6 @@ public class ChatRoom extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnAllMessage;
     private javax.swing.JMenuItem btnExit;
     private javax.swing.JButton btnSend;
-    private javax.swing.JMenuItem btnYourMessage;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblClock;

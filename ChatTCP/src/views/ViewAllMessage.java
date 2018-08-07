@@ -57,17 +57,18 @@ public class ViewAllMessage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jCalendar1 = new com.toedter.calendar.JCalendar();
         lblClock = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
         lblLogout = new javax.swing.JButton();
         lblTittle = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         tblViewYourMessage = new javax.swing.JTable();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnFile = new javax.swing.JMenu();
         btnExit = new javax.swing.JMenuItem();
         mnView = new javax.swing.JMenu();
-        btnYourMessage = new javax.swing.JMenuItem();
         btnHome = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,16 +92,18 @@ public class ViewAllMessage extends javax.swing.JFrame {
 
         tblViewYourMessage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "How are you? ", "02/08/2018", "Client1"},
+                {"1", "How are you? ", "02/08/2018", "Client3"},
                 {"2", "What is this", "03/08/2018", "Client2"},
                 {"3", "Hi", "01/01/2018", "Client2"},
                 {"4", "Hello", "03/03/2017", "Client2"}
             },
             new String [] {
-                "ID", "Message", "Date", "UserName"
+                "ID", "Message", "Date", "Receiver"
             }
         ));
         jScrollPane.setViewportView(tblViewYourMessage);
+
+        jDateChooser1.setDateFormatString("yyyy/MM/dd");
 
         mnFile.setText("File");
 
@@ -115,14 +118,6 @@ public class ViewAllMessage extends javax.swing.JFrame {
         jMenuBar1.add(mnFile);
 
         mnView.setText("View");
-
-        btnYourMessage.setText("Your Message");
-        btnYourMessage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnYourMessageActionPerformed(evt);
-            }
-        });
-        mnView.add(btnYourMessage);
 
         btnHome.setText("Home");
         btnHome.addActionListener(new java.awt.event.ActionListener() {
@@ -143,17 +138,19 @@ public class ViewAllMessage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTittle)
-                .addGap(164, 164, 164))
+                .addGap(170, 170, 170))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblClock, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblLogout))
-                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(lblClock, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(lblLogout))
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -167,10 +164,12 @@ public class ViewAllMessage extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(lblClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTittle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
 
@@ -183,12 +182,6 @@ public class ViewAllMessage extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnExitActionPerformed
-
-    private void btnYourMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnYourMessageActionPerformed
-        this.setVisible(false);
-        ViewYourMessage viewYourMessage = new ViewYourMessage();
-        viewYourMessage.setVisible(true);
-    }//GEN-LAST:event_btnYourMessageActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         this.setVisible(false);
@@ -240,7 +233,8 @@ public class ViewAllMessage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnExit;
     private javax.swing.JMenuItem btnHome;
-    private javax.swing.JMenuItem btnYourMessage;
+    private com.toedter.calendar.JCalendar jCalendar1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JLabel lblClock;

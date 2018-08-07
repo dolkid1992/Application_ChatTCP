@@ -5,6 +5,10 @@
  */
 package views;
 
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Hieutt
@@ -31,19 +35,26 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSubmit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
+        btnExit = new javax.swing.JButton();
         tfUserName = new javax.swing.JTextField();
+        btnRegister = new javax.swing.JLabel();
+        btnLogin = new javax.swing.JButton();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Welcome to ChatChannel");
 
-        btnSubmit.setText("Submit");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setText("Exit");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
+        tfUserName.setText("Please enter a username ...");
         tfUserName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tfUserNameFocusGained(evt);
@@ -58,52 +69,108 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        btnRegister.setText("Not registered? Create new account");
+        btnRegister.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnRegisterMouseMoved(evt);
+            }
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                btnRegisterMouseDragged(evt);
+            }
+        });
+        btnRegister.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegisterMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegisterMouseExited(evt);
+            }
+        });
+
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(tfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btnSubmit)
-                .addGap(18, 18, 18))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnLogin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExit))
+                    .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfUserName))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(tfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegister)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        this.setVisible(false);
-        ChatRoom chatRoom = new ChatRoom();
-        chatRoom.setVisible(true);
-    }//GEN-LAST:event_btnSubmitActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Are you sure to exit this application ?") == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void tfUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfUserNameActionPerformed
 
     private void tfUserNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfUserNameFocusGained
-            if(tfUserName.getText().equals("Please enter a username ...")){
-                tfUserName.setText("");
-            }
+        if (tfUserName.getText().equals("Please enter a username ...")) {
+            tfUserName.setText("");
+        }
     }//GEN-LAST:event_tfUserNameFocusGained
 
     private void tfUserNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfUserNameFocusLost
-         if(tfUserName.getText().equals("")){
-                tfUserName.setText("Please enter a username ...");
-            }
+        if (tfUserName.getText().equals("")) {
+            tfUserName.setText("Please enter a username ...");
+        }
     }//GEN-LAST:event_tfUserNameFocusLost
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        this.setVisible(false);
+        ChatRoom chatRoom = new ChatRoom();
+        chatRoom.setVisible(true);
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
+        JFrame frame = new JFrame("InputDialog Example #1");
+        JOptionPane.showInputDialog(frame, "Hello");
+    }//GEN-LAST:event_btnRegisterMouseClicked
+
+    private void btnRegisterMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseMoved
+        btnRegister.setForeground(Color.red);
+    }//GEN-LAST:event_btnRegisterMouseMoved
+
+    private void btnRegisterMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseDragged
+
+    }//GEN-LAST:event_btnRegisterMouseDragged
+
+    private void btnRegisterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseExited
+        btnRegister.setForeground(Color.black);
+    }//GEN-LAST:event_btnRegisterMouseExited
 
     /**
      * @param args the command line arguments
@@ -141,7 +208,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel btnRegister;
+    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField tfUserName;
     // End of variables declaration//GEN-END:variables
 }
