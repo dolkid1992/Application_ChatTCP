@@ -5,10 +5,19 @@
  */
 package views;
 
+import java.awt.HeadlessException;
 import static java.lang.Thread.sleep;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Vector;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,7 +54,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
         this.setTitle("ChatRoom");
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(576,520);
+        this.setSize(576, 520);
     }
 
     /**
@@ -65,7 +74,8 @@ public class ViewAllMessage extends javax.swing.JFrame {
         lblTittle = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         tblViewYourMessage = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        tfDate = new com.toedter.calendar.JDateChooser();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnFile = new javax.swing.JMenu();
         btnExit = new javax.swing.JMenuItem();
@@ -106,10 +116,10 @@ public class ViewAllMessage extends javax.swing.JFrame {
         ));
         jScrollPane.setViewportView(tblViewYourMessage);
 
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -158,7 +168,10 @@ public class ViewAllMessage extends javax.swing.JFrame {
                                 .addGap(58, 58, 58)))
                         .addComponent(lblLogout))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tfDate, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -177,7 +190,10 @@ public class ViewAllMessage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTittle, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSearch)
+                            .addComponent(tfDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -194,7 +210,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         this.setVisible(false);
-        ChatRoom chatRoom = new ChatRoom(); 
+        ChatRoom chatRoom = new ChatRoom();
         chatRoom.setVisible(true);
     }//GEN-LAST:event_btnHomeActionPerformed
 
@@ -204,9 +220,80 @@ public class ViewAllMessage extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_lblLogoutActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    public void showMessageData() {
+        String header[] = {"Id", "Message", "Date", "Receiver"};
+        DefaultTableModel tblModel = new DefaultTableModel(header, 0);
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+        
+        String DB_URL = "jdbc:mysql://10.22.40.117:3306/";
+        String DB_USER = "root";
+        String DB_PASSWORD = "123456";
+
+        try {
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+            // Câu lệnh xem dữ liệu
+            String sql = "select Message.message,time,a.user_name as sender,b.user_name as receiver\n" +
+            "from Message join Users a on Message.sender_id = a.id\n" +
+            "join Users b on Message.receiver_id = b.id;";
+
+            // Nếu tìm kiếm theo title
+            if (tfDate.getCalendar().toString().length() > 0) {
+                sql = sql + " where  like '%" + tfDate.getCalendar().toString() + "%'";
+            }
+
+            // Tạo đối tượng thực thi câu lệnh Select
+            st = conn.createStatement();
+
+            // Thực thi 
+            rs = st.executeQuery(sql);
+            Vector data = null;
+
+            tblModel.setRowCount(0);
+
+            // Nếu sách không tồn tại
+            if (rs.isBeforeFirst() == false) {
+                JOptionPane.showMessageDialog(this, "The book is not available!");
+                return;
+            }
+
+            // Trong khi chưa hết dữ liệu
+            while (rs.next()) {
+                data = new Vector();
+                data.add(rs.getInt("id"));
+                data.add(rs.getString("title"));
+                data.add(rs.getString("price"));
+
+                // Thêm một dòng vào table model
+                tblModel.addRow(data);
+            }
+
+            tblViewYourMessage.setModel(tblModel); // Thêm dữ liệu vào table
+        } catch (HeadlessException | SQLException e) {
+            
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ex) {
+                
+            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -246,7 +333,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnExit;
     private javax.swing.JMenuItem btnHome;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane;
@@ -258,5 +345,6 @@ public class ViewAllMessage extends javax.swing.JFrame {
     private javax.swing.JMenu mnFile;
     private javax.swing.JMenu mnView;
     private javax.swing.JTable tblViewYourMessage;
+    private com.toedter.calendar.JDateChooser tfDate;
     // End of variables declaration//GEN-END:variables
 }

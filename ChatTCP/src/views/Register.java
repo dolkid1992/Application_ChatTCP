@@ -9,8 +9,8 @@ import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,6 +54,15 @@ public class Register extends javax.swing.JFrame {
         lblLogo.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         lblLogo.setText("REGISTRY");
 
+        txtUserName.setText("Please enter an account ...");
+        txtUserName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUserNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUserNameFocusLost(evt);
+            }
+        });
         txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserNameActionPerformed(evt);
@@ -74,7 +83,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        btnSignIn.setText("Already have account ? Sign in ?");
+        btnSignIn.setText("   Already have account ? Sign in");
         btnSignIn.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 btnSignInMouseMoved(evt);
@@ -97,31 +106,34 @@ public class Register extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogo)
-                .addGap(84, 84, 84))
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblLogo)
+                        .addGap(84, 84, 84))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(btnSignIn))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRegistry, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(btnExit)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnRegistry, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -131,13 +143,12 @@ public class Register extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistryActionPerformed
-        // TODO add your handling code here:
-        String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-        String DB_URL = "jdbc:mysql://10.22.40.117:3306/";
+        String DB_URL = "jdbc:mysql://10.22.40.117:3306/ChatTcp";
         String DB_USER = "root";
         String DB_PASSWORD = "123456";
 
@@ -154,10 +165,22 @@ public class Register extends javax.swing.JFrame {
             statement = conn.prepareStatement(sql);
             statement.setString(1, txtUserName.getText());
 
-            statement.executeUpdate();
-            if(txtUserName.getText() != null){
-            JOptionPane.showMessageDialog(null, "Regestry Succes","Error" ,JOptionPane.OK_OPTION);
+            String result = "SELECT COUNT(user_name) as count FROM Users WHERE user_name ='" + txtUserName.getText() + "'";
+            PreparedStatement  statement2 = conn.prepareStatement(result);
+            ResultSet resultSet = statement2.executeQuery();
+            int count = 0;
+            
+            while (resultSet.next()) {
+                count = Integer.parseInt(resultSet.getString("count"));
             }
+
+            if (txtUserName.getText() != null && count == 0) {
+                statement.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Regestry Succes", "Error", JOptionPane.OK_OPTION);
+            }else{
+                JOptionPane.showMessageDialog(null, "Regestry Fail - User have already ", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -190,6 +213,18 @@ public class Register extends javax.swing.JFrame {
     private void btnSignInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSignInMouseExited
         btnSignIn.setForeground(Color.black);
     }//GEN-LAST:event_btnSignInMouseExited
+
+    private void txtUserNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserNameFocusGained
+        if (txtUserName.getText().equals("Please enter an account ...")) {
+            txtUserName.setText("");
+        }
+    }//GEN-LAST:event_txtUserNameFocusGained
+
+    private void txtUserNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserNameFocusLost
+        if (txtUserName.getText().equals("")) {
+            txtUserName.setText("Please enter an account ...");
+        }
+    }//GEN-LAST:event_txtUserNameFocusLost
 
     /**
      * @param args the command line arguments
