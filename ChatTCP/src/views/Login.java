@@ -24,6 +24,8 @@ public class Login extends javax.swing.JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setFocusable(true);
+        btnLogin.setSize(30, 60);
+        btnExit.setSize(30, 60);
     }
 
     /**
@@ -36,7 +38,6 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
         btnExit = new javax.swing.JButton();
         tfUserName = new javax.swing.JTextField();
         btnRegister = new javax.swing.JLabel();
@@ -156,8 +157,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
-        JFrame frame = new JFrame("InputDialog Example #1");
-        JOptionPane.showInputDialog(frame, "Hello");
+        this.setVisible(false);
+        Register register = new Register();
+        register.setVisible(true);
     }//GEN-LAST:event_btnRegisterMouseClicked
 
     private void btnRegisterMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseMoved
@@ -211,7 +213,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel btnRegister;
-    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField tfUserName;
     // End of variables declaration//GEN-END:variables
