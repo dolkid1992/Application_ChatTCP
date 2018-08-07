@@ -102,7 +102,7 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-        String DB_URL = "jdbc:mysql://10.22.40.117:3306/";
+        String DB_URL = "jdbc:mysql://10.22.40.117:3306/ChatTcp";
         String DB_USER = "root";
         String DB_PASSWORD = "123456";
 
