@@ -14,11 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,21 @@ import javax.swing.table.DefaultTableModel;
  * @author Hieutt
  */
 public class ViewAllMessage extends javax.swing.JFrame {
+
+    private String sql = "select Message.id,Message.message,time,a.user_name as sender,b.user_name as receiver\n"
+            + "from Message join Users a on Message.sender_id = a.id\n"
+            + "join Users b on Message.receiver_id = b.id";
+
+    String DB_URL = "jdbc:mysql://localhost:3306/ChatTCP";
+    String DB_USER = "root";
+    String DB_PASSWORD = "12345678";
+    //String DB_URL = "jdbc:mysql://10.22.40.117:3306/ChatTCP";
+    String header[] = {"Id", "Message", "Date", "Receiver"};
+    DefaultTableModel tblModel = new DefaultTableModel(header, 0);
+
+    Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
 
     public void clock() {
         Thread clock = new Thread() {
@@ -122,6 +139,8 @@ public class ViewAllMessage extends javax.swing.JFrame {
                 btnSearchActionPerformed(evt);
             }
         });
+
+        tfDate.setDateFormatString("yyyy-MM-dd\n");
 
         mnFile.setText("File");
 
@@ -221,54 +240,34 @@ public class ViewAllMessage extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String text = ((JTextField) tfDate.getDateEditor().getUiComponent()).getText();
+        System.out.println(text);
+        if (text.length() > 0) {
+            sql = sql + " where Message.time like '%" + text + "%'";
+            showMessageData();
+            System.out.println(text.length());
+        } else {
+            System.out.println("Error");
+        }        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     public void showMessageData() {
-        String header[] = {"Id", "Message", "Date", "Receiver"};
-        DefaultTableModel tblModel = new DefaultTableModel(header, 0);
-
-        Connection conn = null;
-        Statement st = null;
-        ResultSet rs = null;
-        
-        //String DB_URL = "jdbc:mysql://10.22.40.117:3306/ChatTCP";
-        
-        String DB_URL = "jdbc:mysql://localhost:3306/ChatTCP";
-        String DB_USER = "root";
-        String DB_PASSWORD = "12345678";
-
         try {
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
-            // Câu lệnh xem dữ liệu
-            String sql = "select Message.id,Message.message,time,a.user_name as sender,b.user_name as receiver\n" +
-            "from Message join Users a on Message.sender_id = a.id\n" +
-            "join Users b on Message.receiver_id = b.id;";
-
-            // Nếu tìm kiếm theo title
-//            Date date = tfDate.getDate();
-//            String strDate = DateFormat.getDateInstance().format(date);
-//            if (strDate.length() > 0) {
-//                sql = sql + " where  like '%" + tfDate.getDate() + "%'";
-//            }
-
-            // Tạo đối tượng thực thi câu lệnh Select
             st = conn.createStatement();
 
-            // Thực thi 
             rs = st.executeQuery(sql);
+
             Vector data = null;
 
             tblModel.setRowCount(0);
 
-            // Nếu sách không tồn tại
             if (rs.isBeforeFirst() == false) {
                 JOptionPane.showMessageDialog(this, "The message is not available!");
                 return;
             }
 
-            // Trong khi chưa hết dữ liệu
             while (rs.next()) {
                 data = new Vector();
                 data.add(rs.getInt("Message.id"));
@@ -282,7 +281,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
 
             tblViewYourMessage.setModel(tblModel); // Thêm dữ liệu vào table
         } catch (HeadlessException | SQLException e) {
-            
+            System.out.println(e.getMessage());
         } finally {
             try {
                 if (conn != null) {
@@ -295,7 +294,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
                     rs.close();
                 }
             } catch (SQLException ex) {
-                
+                System.out.println(ex.getMessage());
             }
         }
     }

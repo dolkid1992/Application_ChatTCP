@@ -226,6 +226,9 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="tfDate">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd&#xa;"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
