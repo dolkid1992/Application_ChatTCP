@@ -154,6 +154,7 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(false);
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.setVisible(true);
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked

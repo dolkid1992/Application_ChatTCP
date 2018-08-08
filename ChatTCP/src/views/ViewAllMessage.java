@@ -8,14 +8,16 @@ package views;
 import java.awt.HeadlessException;
 import static java.lang.Thread.sleep;
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,6 +57,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(576, 520);
+        showMessageData();
     }
 
     /**
@@ -105,10 +108,7 @@ public class ViewAllMessage extends javax.swing.JFrame {
 
         tblViewYourMessage.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "How are you? ", "02/08/2018", "Client3"},
-                {"2", "What is this", "03/08/2018", "Client2"},
-                {"3", "Hi", "01/01/2018", "Client2"},
-                {"4", "Hello", "03/03/2017", "Client2"}
+
             },
             new String [] {
                 "ID", "Message", "Date", "Receiver"
@@ -232,22 +232,26 @@ public class ViewAllMessage extends javax.swing.JFrame {
         Statement st = null;
         ResultSet rs = null;
         
-        String DB_URL = "jdbc:mysql://10.22.40.117:3306/";
+        //String DB_URL = "jdbc:mysql://10.22.40.117:3306/ChatTCP";
+        
+        String DB_URL = "jdbc:mysql://localhost:3306/ChatTCP";
         String DB_USER = "root";
-        String DB_PASSWORD = "123456";
+        String DB_PASSWORD = "12345678";
 
         try {
             conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
             // Câu lệnh xem dữ liệu
-            String sql = "select Message.message,time,a.user_name as sender,b.user_name as receiver\n" +
+            String sql = "select Message.id,Message.message,time,a.user_name as sender,b.user_name as receiver\n" +
             "from Message join Users a on Message.sender_id = a.id\n" +
             "join Users b on Message.receiver_id = b.id;";
 
             // Nếu tìm kiếm theo title
-            if (tfDate.getCalendar().toString().length() > 0) {
-                sql = sql + " where  like '%" + tfDate.getCalendar().toString() + "%'";
-            }
+//            Date date = tfDate.getDate();
+//            String strDate = DateFormat.getDateInstance().format(date);
+//            if (strDate.length() > 0) {
+//                sql = sql + " where  like '%" + tfDate.getDate() + "%'";
+//            }
 
             // Tạo đối tượng thực thi câu lệnh Select
             st = conn.createStatement();
@@ -260,16 +264,17 @@ public class ViewAllMessage extends javax.swing.JFrame {
 
             // Nếu sách không tồn tại
             if (rs.isBeforeFirst() == false) {
-                JOptionPane.showMessageDialog(this, "The book is not available!");
+                JOptionPane.showMessageDialog(this, "The message is not available!");
                 return;
             }
 
             // Trong khi chưa hết dữ liệu
             while (rs.next()) {
                 data = new Vector();
-                data.add(rs.getInt("id"));
-                data.add(rs.getString("title"));
-                data.add(rs.getString("price"));
+                data.add(rs.getInt("Message.id"));
+                data.add(rs.getString("Message.message"));
+                data.add(rs.getDate("time"));
+                data.add(rs.getString("receiver"));
 
                 // Thêm một dòng vào table model
                 tblModel.addRow(data);
